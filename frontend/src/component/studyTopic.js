@@ -11,12 +11,10 @@ function StudyTopic(props) {
 
     return (
         <div>
-
-
             <motion.div layout="position"
                 transition={{
                     layout: { duration: 0.3 }
-                }} className="bg-info card w-100 m-5 p-5" onClick={() => { setIsTopicOpen(!isTopicOpen) }}>
+                }} className="bg-info card m-5 p-5" onClick={() => { setIsTopicOpen(!isTopicOpen) }}>
                 <motion.div layout="position" className="my-auto">
                     <motion.div class="row justify-content-between text-white">
                         <motion.div layout="position" class="col-4 h2">

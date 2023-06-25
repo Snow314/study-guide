@@ -5,6 +5,11 @@ from flask_cors import CORS
 from time import time
 import openai
 import os
+from langchain.chat_models import ChatOpenAI
+from helper import *
+from llama_index.readers.schema.base import Document
+from llama_index import (GPTTreeIndex, GPTListIndex,
+                         LLMPredictor, ServiceContext)
 
 app = Flask(__name__, static_url_path='', static_folder='../frontend/build')
 CORS(app)
@@ -12,19 +17,21 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route("/api/analyze-topics", methods=["POST"])
 def analyze_topics():
-    topics = request.get_json()["topics"]
+    topics = request.get_json()["topics"].split(',')
 
-    prompt = """Given these topics: [{}] break them down granularly into a study guide. Give the result in this form 
-            ["topic1", "topic2", "topic3"] ...""".format(topics)
+    extracted_pdf_text = ""
 
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
-        max_tokens=2000,
-        temperature=0
-        )
+    for topic in topics:
+        extracted_pdf_text += extract_pdf(topic)
 
-    return str(response["choices"][0]["text"]), 200
+    prompt = """Given these texts: break them down granularly into a study guide. Give the result in this form 
+            ["topic1", "topic2", "topic3"]"""
+
+    index = index_text(extracted_pdf_text)
+    query_engine = index.as_query_engine()
+    response = query_engine.query(prompt)
+
+    return str(response), 200
 
 @app.errorhandler(404)
 def not_found(e):
