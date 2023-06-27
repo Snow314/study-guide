@@ -2,32 +2,22 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './flashcard.css'
 
-const Flashcard = () => {
-    const [isFlipped, setIsFlipped] = useState(false);
 
-    const flipCard = () => {
-        setIsFlipped(!isFlipped);
-    };
+const Flashcard = (props) => {
 
     return (
-        <div className="flashcard-container">
-            <div
-                className={`card ${isFlipped ? 'card-flipped' : ''}`}
-                onClick={flipCard}
-            >
-                <div className="card-inner">
-                    <div className="card-front">
-                        <div className="card-header">Question</div>
-                        <div className="card-body">What is the capital of France?</div>
-                    </div>
-                    <div className="card-back">
-                        <div className="card-header">Answer</div>
-                        <div className="card-body">Paris</div>
-                    </div>
+        <div className="flip-card m-3 d-flex align-items-center justify-content-center">
+            <div className="flip-card-inner">
+                <div className="flip-card-front border rounded border-light bg-dark text-white d-flex align-items-center justify-content-center">
+                    <div class="overflow-auto"><h3 className=''>{props.question}</h3></div>
+                </div>
+                <div className="flip-card-back border rounded border-dark bg-light text-black d-flex flex-column align-items-center justify-content-center">
+                    <div class="overflow-auto"><p className=''>{props.answer}</p></div>
                 </div>
             </div>
         </div>
-    );
+
+    )
 };
 
 export default Flashcard

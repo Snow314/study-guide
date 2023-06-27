@@ -8,6 +8,7 @@ import { useReducer, useState } from "react";
 import StudyTopic from '../component/studyTopic'
 import Flashcard from '../component/flashcard'
 
+
 function App() {
   const [topics, setTopics] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
@@ -16,7 +17,7 @@ function App() {
 
 
   function getStudyTopics() {
-    return breakdown.map((topic) => <StudyTopic topic={topic} />)
+    return breakdown.map((topic) => <StudyTopic topic={topic} links={topics} />)
   }
 
 
@@ -43,7 +44,6 @@ function App() {
 
   return (
     <div className="App container pb-5">
-      <Flashcard />
       <div class="text-center my-2 mb-5 ">
         <p class="text-large text-white display-1">StudyWise</p>
         <p class="text-large text-white h5 mx-5">Revolutionize your studying! Enter topics, get personalized study materials, plans, and more. Our LLM-powered platform makes learning a breeze. Try it now for the ultimate studying experience!</p>

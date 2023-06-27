@@ -1,27 +1,40 @@
-.card {
-  width: 300px;
-  margin: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  transition: transform 0.3s;
+.flip-card {
+  background-color: transparent;
+  height: 200px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
 
-.card-header {
-  font-weight: bold;
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  border-radius: 10px 10px 0 0;
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
 }
 
-.card-body {
-  font-size: 18px;
-  padding: 20px;
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
 }
 
 .flashcard-container {
